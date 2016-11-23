@@ -1,13 +1,14 @@
 ---
 title: "Introdução ao R"
 author: "Priscilla de Abreu Lopes"
-date: "Novembro,2016"
+date: "Novembro, 2016"
 header-includes:
 output:
   html_notebook:
     fig_caption: yes
     toc: yes
     toc_float: true
+    theme: cerulean
 link-citations: yes
 bibliography: rbib.bib
 ---
@@ -17,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 require(ggplot2)
 ```
 
-#Visão Geral
+# Visão Geral
 
 ## O que é `R`?
 
@@ -30,6 +31,7 @@ Baseado na linguagem `S`, `R` foi desenvolvido no final da década de 90;
 `R` pode ser baixado e distribuído gratuitamente de acordo com a licença GNU;
 
 `R` é uma linguagem:
+
 - Interpretada:
     + Interpretador em linha de comando;
     + Desenvolvimento baseado em scripts;
@@ -218,7 +220,7 @@ v[-2]      ## Todos, exceto o elemento 2
 
 Operações aritméticas também podem ser calculadas para vetores numéricos:
 
-```{r, prompt = TRUE}
+```{r, warning=FALSE, prompt=TRUE}
 ## vInt = c(1, 2, 3)
 vInt + c(3, 2, 1)
 vInt + c(5, 4)       ## vetores de tamanhos diferentes
@@ -389,7 +391,7 @@ factor(
 - Objeto $n$-dimensional com elementos de um **mesmo tipo**
 
 ```{r, prompt=TRUE}
-array(1:8,dim=c(2,2,2))
+array(1:12,dim=c(2,2,3))
 ```
 
 # Estruturas de Controle
@@ -417,7 +419,6 @@ for(k in 1:5){
 ```
 
 Informações sobre condicionais e laços em `R` podem ser obtidas pelo comando `?Control`. Laço fora do pacote padrão: `foreach` (`install.packages("foreach")`).
-
 
 ## Família `apply`
 
@@ -454,14 +455,14 @@ dfM
 ```
 
 ```{r, prompt = TRUE}
-## vetor com a média de Altura para cada Idade
+## vetor com a mean de Altura para cada Idade
 tapply(dfM$Altura, dfM$Idade, mean)
 ```
 
 # Scripts
 
 ```{r, eval = FALSE, prompt=TRUE}
-## carrega e executa um arquivo .R para a workspace
+## carrega e executa um arquivo .R para o WD
 source("meuScript.R")
 ```
 
@@ -508,7 +509,7 @@ Definindo uma função com valor padrão para parâmetro:
 
 ```{r, prompt=TRUE}
 potencia <- function(x, y = 2) {
-  x^y  ## ou return(x^y)
+  return(x^y)
 }
 
 c(potencia(3), 
@@ -544,6 +545,7 @@ Atualizamos a classe de `meuVetor`:
 
 ```{r, prompt = TRUE}
 class(meuVetor) <- append(class(meuVetor), "Sequencia")
+
 class(meuVetor)
 ```
 
@@ -559,24 +561,24 @@ class(quinzinho) <- append(class(quinzinho),"Personagem")
 quinzinho
 ```
 
-Podemos implementar métodos para Personagem usando funções genéricas
+Podemos implementar métodos para Personagem usando funções genéricas:
 
-```{r, eval = FALSE, prompt =TRUE}
-## Uma nova função genérica
+```{r}
+## Uma nova funcao generica
 maioridade <- function(obj) {
   UseMethod("maioridade",obj)   
 }
 
-## Uma implementação específica para a classe Personagem
+## Uma implementa maioridade para a classe Personagem
 maioridade.Personagem <- function(obj) {
   return(obj$idade >= 18)
 }
 ```
 
-- Implementando métodos por funções genéricas já definidas pelo `R`
+Implementando métodos por funções genéricas já definidas pelo `R`:
 
-```{r, eval = FALSE, prompt =TRUE}
-## Implementação de print para a classe Personagem
+```{r}
+## Implementa de print para a classe Personagem
 print.Personagem <- function(obj) {
   cat("Nome:", obj$nome, "\t")
   cat("Idade:", obj$idade, "\n")
@@ -585,7 +587,7 @@ print.Personagem <- function(obj) {
 
 ```
 
-- Executando funções
+Executando funções:
 
 ```{r, prompt=TRUE}
 maioridade(quinzinho)
@@ -596,7 +598,7 @@ quinzinho
 ***
 ### Exemplo - `ProgramaTV`
 
-```{r, prompt=TRUE}
+```{r}
 ProgramaTV <- function(titulo, genero = "Reality", notas = NA){
   
   this <- list(
@@ -617,26 +619,26 @@ Um objeto da classe `ProgramaTV`:
 ```{r, prompt=TRUE}
 got <- ProgramaTV(
           "Game of Thrones",
-          c("Aventura", "Drama", "Épico", "Fantasia"),
+          c("Aventura", "Drama", "Epico", "Fantasia"),
           c(IMDB = 9.5, Rotten = 94))
 
 got
 ```
 
-Métodos para `ProgramaTV`
+Métodos para `ProgramaTV`:
 
-```{r, prompt=TRUE}
-## Novo método genérico
+```{r}
+## Novo metodo generico
 getTitulo <- function(objeto) {
   UseMethod("getTitulo", objeto)
 }
 
-## Implementação de getTitulo para a classe ProgramaTV
+## Implementa getTitulo para a classe ProgramaTV
 getTitulo.ProgramaTV <- function(objeto) {
   return(objeto$titulo)
 }
 
-## Implementação de print para a classe ProgramaTV
+## Implementa de print para a classe ProgramaTV
 print.ProgramaTV <- function(objeto){
   cat("Título:", objeto$titulo, "\n")
   cat("Gênero:", objeto$genero, "\n")
