@@ -1,0 +1,795 @@
+---
+title: "Introdução ao R"
+author: "Priscilla de Abreu Lopes"
+date: "Novembro,2016"
+header-includes:
+  - \usepackage[brazil]{babel}
+output:
+  beamer_presentation:
+    colortheme: orchid
+    fig_caption: yes
+    slide_level: 2
+    theme: Madrid
+link-citations: yes
+bibliography: rbib.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(ggplot2)
+```
+
+#Visão Geral
+
+## O que é `R`?
+
+- Muitos definem R como um software estatístico. No entanto, a definição dos desenvolvedores vai além: 
+
+> *`R` é um ambiente de programação com um conjunto integrado de ferramentas de software para manipulação de dados, simulação, cálculos e exibição de gráficos.* [@mainR]
+
+- Baseado na linguagem `S`, `R` foi desenvolvido no final da década de 90
+
+- `R` pode ser baixado e distribuído gratuitamente de acordo com a licença GNU
+
+## Características
+
+- Interpretada:
+    + Interpretador em linha de comando
+    + Desenvolvimento baseado em scripts
+- Tipagem dinâmica
+- Orientada a Objetos
+- Extensível:
+    + 25 pacotes com funções básicas
+    + 9500+ pacotes disponíveis no [repostório oficial](https://cran.r-project.org/web/packages/available_packages_by_name.html)
+
+***
+
+### Instalar o `R`
+
+Acesse o site do [projeto](https://cran.r-project.org/) para fazer o download da distribuição que mais lhe agrade (Linux, OS X, Windows) e execute o binário para instalação
+
+## Interface Gráfica
+
+- O `R` conta com uma interface gráfica simples, baseada em janelas, onde podem ser acessados:
+    + o *R Console*
+    + Um editor de scripts
+    + Opções que facilitam:
+        - Execução de scripts
+        - Instalação de pacotes de extensão
+- Existem variados editores de textos e IDEs com suporte para desenvolvimento `R`
+
+***
+
+![Screenshot da GUI do `R`](images/ssRGUI.png)
+
+## O que é `RStudio`?
+
+- O `RStudio` é uma IDE livre e de código aberto, que pode ser executada
+    + Localmente (Widnows, OS X e Linux)
+    + Servidor (Linux)
+
+- O `RStudio` tem como objetivo facilitar o desenvolvimento em `R`, contando com:
+    + Painéis para console, editor de scripts, gráficos, gerenciador de arquivos, entre outros
+    + Debugger visual
+    + Ferramentas para controle de versão [@gitsvn]
+    + Ferramentas de apoio à reprodutibilidade [@rnotebooks]
+    + Framework para aplicações web [@shiny]
+
+***
+
+![Screenshot do `RStudio`](images/ssRStudio.png)
+
+***
+
+### Instalar o `RStudio`
+
+Acesse o site do [`RStudio`](https://www.rstudio.com/products/rstudio/download/) para fazer o download da IDE (Linux, OS X, Windows) e execute o binário para instalação.
+
+# Primeiros Comandos
+
+## Console
+
+- O sinal de maior (**>**) indica o prompt e significa que o `R` está pronto para receber comandos
+
+- Se o comando inserido estiver incompleto, o sinal de adição (**+**) aparece, para que o comando seja completado.
+
+```{r, eval=FALSE, prompt = TRUE}
+summary(iris    ## OMG! faltou um )
+)               ## sem problemas!
+```
+
+## Calculadora `R`
+
+- O pacote de operadores aritméticos e outras funções básicas de matemática estão disponíveis por padrão:
+
+```{r, eval=FALSE,prompt = TRUE}
+## Isso é um comentário
+2        ## imprime um número
+
+## cálculos simples
+4 + 3    
+5 - 9
+7 * 8
+5 / 2    ## divisão real
+10^3
+```
+
+## Calculadora `R`
+
+```{r, eval=FALSE,prompt = TRUE}
+5 %/% 2       ## divisão inteira
+5 %% 2        ## resto da divisão inteira
+sqrt(9)       ## raiz quadrada
+abs(9-20)     ## valor absoluto
+factorial(4)  ## fatorial
+```
+
+## Variáveis
+
+- Atribuição de valores a variáveis é feita pelo operador `<-`:
+
+```{r, eval=FALSE,prompt = TRUE}
+x <- 2  ## Atribui
+x       ## Imprime
+```
+
+- Lembrando que a tipagem em `R` é dinâmica:
+
+```{r, eval=FALSE,prompt = TRUE}
+(x <- "Hello World!")  ## Atribui e imprime
+```
+
+## Working Directory
+
+- O *Working Directory* (WD) é o ambiente de trabalho atual
+
+```{r, eval = FALSE, prompt = TRUE}
+getwd()             ## retorna o WD atual
+setwd(meuDiretorio) ## altera o WD atual
+
+ls()                ## lista de objetos no WD
+```
+
+## Working Directory
+
+- Durante uma sessão `R`, uma imagem do ambiente (objetos e valores) e o histórico de comandos podem ser salvos
+
+```{r, eval = FALSE, prompt = TRUE}
+savehistory(file = ".Rhistory") ## salva o histórico de comandos
+save.image(file = ".RData")     ## salva imagem do ambiente
+```
+
+- Se não especificado um diretório, os arquivos são salvos no WD atual
+
+# Vetores
+
+## Vetores
+
+- Uma lista de elementos de um **mesmo tipo**
+
+- A função `c` cria vetores a partir de valores:
+
+```{r, prompt = TRUE}
+(vInt <- c(1,2,3))           ## um vetor de inteiros
+(vChar <- c('a', 'b', 'c'))  ## um vetor de caracteres 
+```
+
+## Vetores
+
+- Para verificar o tipo de um vetor:
+
+```{r, prompt = TRUE}
+typeof(vInt)
+typeof(vChar)
+```
+
+
+## Vetores
+
+- A função `c` também pode ser usada para concatenar vetores:
+
+```{r, prompt = TRUE}
+v <- c(vInt, vChar)
+```
+
+- Qual o tipo de `v`?
+
+```{r, prompt = TRUE}
+typeof(v)
+v
+```
+
+## Vetores
+
+- Os elementos de um vetor são numerados a partir do valor **1** e podem ser acessados por seus índices:
+
+```{r, prompt = TRUE}
+vInt[3]      ## vInt = c(1, 2, 3)
+vChar[2]     ## vChar = c('a', 'b', 'c')
+```
+
+## Vetores
+
+- Acessando partes de vetores:
+
+```{r, prompt = TRUE}
+v[3:5]     ## Elementos do índice 3 ao índice 5
+v[-2]      ## Todos com exceção do elemento de índice 2
+```
+
+## Vetores
+
+- Operações aritméticas também podem ser calculadas para vetores numéricos
+
+```{r, prompt = TRUE}
+## vInt = c(1, 2, 3)
+vInt + c(3, 2, 1)
+vInt + c(5, 4)
+```
+## Vetores
+
+- Operações aritméticas também podem ser calculadas para vetores numéricos
+
+```{r, prompt = TRUE}
+## vInt = c(1, 2, 3)
+vInt * c(3, 2, 1)
+vInt * 3
+```
+
+## Vetores
+
+- Mais formas de criar vetores
+
+```{r, eval = FALSE, prompt = TRUE}
+(v11 <- logical(10))
+(v12 <- numeric(20))
+(v13 <- character(5))
+(v2 <- 1:10)
+(v3 <- seq(1, 10, by = 3))
+(v4 <- seq(1, 5, length.out = 8))
+(v5 <- rep(.5, times = 10))
+```
+
+## Vetores
+
+- Funções padrão aplicadas a vetores
+
+```{r, include = FALSE}
+(v11 <- logical(10))
+(v12 <- numeric(20))
+(v13 <- character(5))
+(v2 <- 1:10)
+(v3 <- seq(1, 10, by = 3))
+(v4 <- seq(1, 5, length.out = 8))
+(v5 <- rep(.5, times = 10))
+```
+
+```{r, prompt = TRUE}
+length(v11)
+sum(v3)
+var(v4)
+```
+
+# Matrizes
+
+## Matrizes
+- Vetores bidimensionais (elementos de um **mesmo tipo**)
+- Sejam os vetores
+```{r}
+ID <- 1:5
+Altura <- c(168, 177, 177, 177, 165)
+Peso <- c(88, 72, 85, 52, 71)
+IMC <- Peso/((Altura/100)^2)
+```
+
+## Matrizes
+- Uma matriz pode ser criada pela combinação de vetores
+
+```{r, prompt = TRUE}
+M <- cbind(ID, Altura, Peso, IMC)
+typeof(M)
+class(M)
+dim(M)
+```
+
+##Matrizes
+
+- Uma matriz pode ser exibida graficamente usando a função padrão `plot`
+
+```{r, eval = FALSE, prompt = TRUE}
+plot(M[,"Altura"], M[,"Peso"],
+     ylab="Peso", xlab="Altura",
+     main="Altura x Peso")
+```
+
+***
+
+```{r, echo = FALSE, prompt = TRUE}
+plot(M[,"Altura"],M[,"Peso"],
+     ylab="Peso",xlab="Altura",
+     main="Altura x Peso")
+```
+
+##Matrizes
+
+- Ou usando a função `quickplot` do pacote `ggplot2`
+
+```{r, eval = FALSE, prompt = TRUE}
+install.packages("ggplot2")
+
+ggplot2::qplot(M[,"Altura"], M[,"Peso"],
+               ylab="Peso", xlab="Altura",
+               main="Obesidade",
+               size = M[,"IMC"],
+               color = as.factor(M[,"ID"]))
+```
+
+***
+
+```{r, echo=FALSE, prompt=TRUE}
+qplot(M[,"Altura"], M[,"Peso"],
+      ylab="Peso", xlab="Altura",
+      main="Obesidade",
+      size = M[,"IMC"],
+      color = as.factor(M[,"ID"]))
+```
+
+# Listas
+
+## Listas
+- Uma coleção de objetos `R` que podem ser de tipos e tamanhos **diferentes**
+
+- Sejam os objetos armazenados nas variáveis `x`, `y` e `z`:
+
+```{r, include = FALSE, prompt = TRUE}
+x <- c(1:4)
+y <- FALSE
+z <- matrix(c(1:4),nrow=2,ncol=2)
+```
+
+```{r, eval = FALSE, prompt = TRUE}
+x <- c(1:4)
+y <- FALSE
+z <- matrix(c(10, 20, 30, 40),nrow=2,ncol=2)
+```
+
+## Listas
+- É possível criar uma lista usando a função `list()`
+
+```{r, prompt = TRUE}
+l1 <- list(x, y, z)
+l2 <- list(x = x, y = y, z = z)
+l3 <- list()
+```
+
+## Listas
+- Listas podem ser referenciadas por índices ou nomes
+
+```{r, prompt = TRUE}
+l1[[1]]
+l2[[2]]
+l2$z
+```
+
+## Listas
+- Elementos podem ser inseridos a listas usando índice ou nomes
+
+```{r, prompt = TRUE}
+l3
+l3[[1]] <- "Elemento 1 da l3 não é mais vazia"
+l3$Subscribe <- TRUE
+l3
+```
+
+## Listas
+- Atenção!!
+
+```{r, prompt = TRUE}
+l3[[2]]      ## retorna valor do elemento 2
+l3$Subscribe ## retorna valor do elemento 2
+```
+
+## Listas
+- Atenção!!
+
+```{r, prompt = TRUE}
+l3[2]        ## retorna lista com o elemento 2
+l2[2:3]      ## retorna lista com os elementos 2 a 3
+```
+
+# `data.frame`
+
+## `data.frame`
+
+- Uma lista de variáveis de **mesmo tamanho**
+
+```{r, include = FALSE, prompt = TRUE}
+v1 <- 1:5
+v2 <- rep(c(T, F), length.out = 5)
+```
+
+```{r, prompt = TRUE}
+(df <- data.frame(v1, v2))
+```
+
+## Outros Tipos de Dados
+
+- **`data.frame`**: uma lista de variáveis de mesmo tamanho
+
+```{r, prompt = TRUE}
+df[,1]
+df$v2
+```
+
+## Outros Tipos de Dados
+
+- **`data.frame`**: uma lista de variáveis de mesmo tamanho
+
+```{r, prompt = TRUE}
+summary(df)
+```
+
+# Outros Tipos de Dados
+
+## Fatores
+
+- Vetores com níveis
+
+- Podem representar variáveis categóricas
+
+```{r, prompt=TRUE}
+factor(
+  c("sim","nao","sim","talvez","talvez",
+    "nao","talvez","nao","nao")
+)
+```
+
+## Arrays
+
+- Objeto $n$-dimensional com elementos de um **mesmo tipo**
+
+```{r, prompt=TRUE}
+array(1:8,dim=c(2,2,2))
+```
+
+# Estruturas de Controle
+
+## Condicional
+
+- Considera uma condição unidimensional que pode ser `TRUE` ou `FALSE`, `T` ou `F`, `1` ou `0`, ou o valor de avaliação de alguma expressão lógica
+
+```{r, eval = FALSE, prompt = TRUE}
+if (TRUE){
+  print("Verdadeiro")
+} else {
+  print("Falso")
+}
+```
+
+## Laços
+
+- Três tipos de laços explícitos: `for`, `repeat` e `while`
+
+```{r, prompt = TRUE}
+for(k in 1:5){
+  print(k)
+}
+```
+
+- Informações sobre condicionais e laços em `R` podem ser obtidas pelo comando `?Control`
+
+## Família `apply`
+- Funções que implementam laços implícitos
+- `apply()`: aplica uma função aos elementos de uma matriz ou array.
+- `lapply()`: aplica uma função a cada coluna de um `data.frame` e retorna uma lista
+- `sapply()`: aplica uma função a cada coluna de um `data.frame` e retorna uma estrutura simplificada (vetor ou matriz)
+- `tapply()`: aplica uma função a cada nível de um fator
+
+## Família `apply`
+
+```{r, include = FALSE, prompt = TRUE}
+df <- as.data.frame(M)
+```
+
+- Considerando um `data.frame` `df` construído a partir da matriz `M`, com colunas `ID`, `Altura`, `Peso` e `IMC`
+
+```{r, prompt = TRUE}
+apply(df, 1, mean) ## aplica função para cada linha
+apply(df, 2, mean) ## aplica função para cada coluna
+```
+
+## Família `apply`
+
+```{r, prompt = TRUE}
+lapply(df, mean) ## retorna uma lista
+```
+
+## Família `apply`
+
+```{r, prompt = TRUE}
+sapply(df, mean) ## retorna um vetor nomeado
+```
+
+- Incluímos uma coluna a mais com a informação sobre a idade
+
+```{r, include = FALSE, prompt = TRUE}
+df <- cbind(df, Idade = sample(18:50, size = 10, replace = TRUE))
+```
+
+```{r, prompt = TRUE}
+## descobrir a média de Altura para cada Idade
+tapply(df$Altura, df$Idade, mean) ## retorna um vetor
+```
+
+# Programando em `R`
+
+## Scripts
+
+- Uma série de comandos salvos em um arquivo .R
+
+```{r, eval = FALSE, prompt=TRUE}
+## carrega e executa um arquivo .R para a workspace
+source("meuScript.R")
+```
+
+### meuScript.R
+```{r, eval = FALSE}
+x <- 5
+print(x^2)
+```
+
+## Funções
+
+- Criação de objetos do tipo `function`
+    + Função anônima
+    + Função atribuída a uma variável
+
+```{r, prompt=TRUE}
+## sapply com aplicação de uma função anônima
+sapply(v1, function(x) x^2)
+```
+
+```{r, prompt=TRUE}
+quadrado <- function(x) {
+  print(x^2)
+}
+
+quadrado(2)
+```
+
+## Funções
+
+- Podemos alterar a função para que retorne o quadrado do parâmetro
+
+```{r, prompt=TRUE}
+quadrado <- function(x) {
+  x^2  ## ou return(x^2)
+}
+
+quadrado(2)
+sapply(v1, quadrado)
+```
+
+## Funções
+
+- Definindo uma função com valor padrão para parâmetro
+
+```{r, prompt=TRUE}
+potencia <- function(x, y = 2) {
+  x^y  ## ou return(x^y)
+}
+
+c(potencia(3), 
+  potencia(3,4),
+  potencia(y = 3, x = 4))
+```
+
+## Classes
+
+- Classes podem ser definidas como funções que definem outras funções
+- Uma classe pode ser definida da maneira que a imaginação mandar
+- São 3 os sistemas para OO:
+    + S3: o primeiro e mais simples
+    + S4: similar a S3, mas com mais formalismo
+    + RC: Classes de Referência (Reference Classes), é o sistema mais parecido com a ideia de objetos de outras linguages OO, como Python, Ruby, Java, ...
+- Para grande parte dos casos, o sistema S3 é suficiente, por isso é mais comumente utilizado
+
+## Sistema S3
+
+- Ideia geral: como alterar a classe de um objeto
+
+```{r, prompt = TRUE}
+(x <- c(1, 2, 3))
+
+class(x)
+
+class(x) <- append(class(x), "Sequencia")
+class(x)
+```
+
+## Sistema S3
+
+- Implementandos métodos por funções genéricas
+
+```{r, prompt=TRUE}
+x <- list(nome = "Joaquim", apelido = "Quinzinho")
+
+class(x) <- append(class(x),"Personagem")
+
+x
+```
+
+## Sistema S3
+
+- Implementando métodos por funções genéricas
+
+```{r}
+## Uma nova função genérica
+pegaNome <- function(obj) {
+  UseMethod("pegaNome",obj)   
+}
+
+## Uma implementação de pegaNome para a classe Personagem
+pegaNome.Personagem <- function(obj) {
+  obj$nome
+}
+
+## Implementação de print para a classe Personagem
+print.Personagem <- function(obj) {
+  cat("Nome:", obj$nome, "\t")
+  cat("Apelido:", obj$apelido, "\n")
+}
+
+```
+
+## Sistema S3
+- Executando funções
+
+```{r, prompt=TRUE}
+pegaNome(x)
+
+x
+```
+## Classe S3 - `ProgramaTV`
+
+```{r, prompt=TRUE}
+ProgramaTV <- function(titulo, genero = "Reality"){
+  
+  this <- list(
+    titulo = titulo,
+    genero = genero
+  )
+  
+  ## Define nome da classe
+  class(this) <- append(class(this), "ProgramaTV")
+  
+  return(this)
+}
+```
+
+## Objeto `got`
+
+```{r, prompt=TRUE}
+got <- ProgramaTV("Game of Thrones", c("Aventura", "Drama", "Épico", "Fantasia"))
+
+got$titulo
+got$genero
+```
+
+## Classe S3 - Métodos Genéricos
+
+```{r, prompt=TRUE}
+getTitulo <- function(objeto) {
+  UseMethod("getTitulo", objeto)
+}
+
+getTitulo.ProgramaTV <- function(objeto) {
+  return(objeto$titulo)
+}
+
+print.ProgramaTV <- function(objeto){
+  cat("Título:", objeto$titulo, "\n")
+  cat("Gênero:", objeto$genero, "\n")
+}
+```
+
+## Objeto `got`
+
+```{r, prompt=TRUE}
+getTitulo(got)
+
+got
+```
+
+# HELP!!11!!!!1!!
+
+## Acessando Páginas de Ajuda
+Para ter mais informações sobre uma determinada função ou pacote, utilizamos os comandos `help()` ou `?`.  
+
+```{r, eval=FALSE, prompt = TRUE}
+help(ggplot2) ## ajuda sobre o pacote ggplot2
+?Control      ## ajuda sobre estruturas de controle
+```
+
+Para pesquisar um termo nos arquivos de ajuda, utilizamos os comandos `help.search()` ou `??`
+
+```{r, eval=FALSE, prompt = TRUE}
+help.search("plot") ## procura pelo termo "plot"
+??solve             ## procura pelo termo "solve"
+```
+
+## Instalando Pacotes
+
+Uma das vantagens de `R` é a facilidade de extensão. Para instalar um novo pacote, disponível no CRAN, basta utilizar a função `install.packages()`.
+
+```{r, eval=FALSE, prompt = TRUE}
+install.packages("ggplot2")
+```
+
+Pacotes que não fazem parte da distribuição padrão devem ser carregados antes da utilização:
+
+```{r, eval=FALSE, prompt = TRUE}
+library(ggplot2)
+```
+
+# Atividade
+
+##
+
+- Salve seu histórico de comandos, uma imagem do ambiente e, se for o caso, quaisquer os scripts gerados durante esta aula
+
+```{r, eval = FALSE, prompt = TRUE}
+savehistory()
+save.image()
+```
+
+- Envie os arquivos .Rhistory, .RData e scripts .R (se houver) para <alopes.priscilla@gmail.com>:
+    + Assunto: IA - 18/11/2016
+    + Corpo: nome e RA dos que compartilharam a máquina
+
+# Prática
+
+##
+
+- `swirl`: <http://swirlstats.com/>
+- DataCamp: <https://www.datacamp.com/#r-courses>
+- Code School: <https://www.codeschool.com/courses/try-r>
+- Dataquest: <https://www.dataquest.io/course/r-programming-beginner>
+- Coursera: <https://www.coursera.org/learn/r-programming>
+- edX: <https://www.edx.org/course/introduction-r-data-science-microsoft-dat204x-2#!>
+- Udacity: <https://br.udacity.com/course/data-analysis-with-r--ud651/>
+- Udemy: <https://www.udemy.com/r-basics/>
+
+
+# Pacotes Interessantes
+
+***
+
+- `ggplot2`: visualização elegante de dados
+- `dplyr`: manipulação de `data.frame`
+- `lubridate`: para trabalhar com date/time
+- `shiny`: aplicações web
+- `rmarkdown`: Notebooks `R`, relatórios com código `R` (PDF e Word), apresentações
+- `parallel`: processamento paralelo
+- `testthat`: escrita e avaliação de testes unitários
+- `foreach`: outra maneira de escrever laços `for`
+- `Rcpp`: integração `R` e `C++`
+- `plotKML`: Visualização de dados espaço-temporais integrado ao Google Earth
+
+***
+
+- Mineração de dados:
+    + `caret`: classificação e regressão
+    + `e1071`: ferramentas para validação e algoritmos clássicos de Aprendizado de Máquina
+    + `rpart`, `tree`: árvores de classificação e regressão
+    + `igraph`: análise e manipulação de grafos
+    + `rWeka`: interface R e WEKA
+    + `nnet`: redes neurais
+    + `arules`: extração de regras de associação
+    + `stream`: framework para Aprendizado em Fluxo de Dados
+    + `twitteR`: ferramentas para mineração de texto do twitter
+- Mais pacotes? Clique [aqui](http://www.rdatamining.com/docs/r-reference-card-for-data-mining) [@rdatamining]
+
+# Material de Apoio
+
+*** 
