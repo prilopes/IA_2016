@@ -3,13 +3,11 @@ title: "Introdução ao R"
 author: "Priscilla de Abreu Lopes"
 date: "Novembro,2016"
 header-includes:
-  - \usepackage[brazil]{babel}
 output:
-  beamer_presentation:
-    colortheme: orchid
+  html_notebook:
     fig_caption: yes
-    slide_level: 2
-    theme: Madrid
+    toc: yes
+    toc_float: true
 link-citations: yes
 bibliography: rbib.bib
 ---
@@ -23,75 +21,74 @@ require(ggplot2)
 
 ## O que é `R`?
 
-- Muitos definem R como um software estatístico. No entanto, a definição dos desenvolvedores vai além: 
+Muitos definem R como um software estatístico. No entanto, a definição dos desenvolvedores vai além: 
 
 > *`R` é um ambiente de programação com um conjunto integrado de ferramentas de software para manipulação de dados, simulação, cálculos e exibição de gráficos.* [@mainR]
 
-- Baseado na linguagem `S`, `R` foi desenvolvido no final da década de 90
+Baseado na linguagem `S`, `R` foi desenvolvido no final da década de 90;
 
-- `R` pode ser baixado e distribuído gratuitamente de acordo com a licença GNU
+`R` pode ser baixado e distribuído gratuitamente de acordo com a licença GNU;
 
-## O que é `R`?
-
+`R` é uma linguagem:
 - Interpretada:
-    + Interpretador em linha de comando
-    + Desenvolvimento baseado em scripts
-- Tipagem dinâmica
-- Orientada a Objetos
+    + Interpretador em linha de comando;
+    + Desenvolvimento baseado em scripts;
+- Tipagem dinâmica;
+- Orientada a Objetos;
 - Extensível:
-    + 25 pacotes com funções básicas
-    + 9500+ pacotes disponíveis no [repostório oficial](https://cran.r-project.org/web/packages/available_packages_by_name.html)
+    + 25 pacotes com funções básicas;
+    + 9500+ pacotes disponíveis no [repostório oficial](https://cran.r-project.org/web/packages/available_packages_by_name.html);
 
 ***
 
-### Instalar o `R`
+**Instalar o `R`:** Acesse o site do [projeto](https://cran.r-project.org/) para fazer o download da distribuição que mais lhe agrade (Linux, OS X, Windows) e execute o binário para instalação.
 
-Acesse o site do [projeto](https://cran.r-project.org/) para fazer o download da distribuição que mais lhe agrade (Linux, OS X, Windows) e execute o binário para instalação
+***
 
 ## Interface Gráfica
 
-- O `R` conta com uma interface gráfica simples, baseada em janelas, onde podem ser acessados:
-    + o *R Console*
-    + Um editor de scripts
-    + Opções que facilitam:
-        - Execução de scripts
-        - Instalação de pacotes de extensão
-- Existem variados editores de textos e IDEs com suporte para desenvolvimento `R`
+O `R` conta com uma interface gráfica simples, baseada em janelas, onde podem ser acessados:
 
-***
+- o *R Console*;
+- Um editor de scripts;
+- Opções que facilitam:
+    + Execução de scripts;
+    + Instalação de pacotes de extensão.
+
+Existem variados editores de textos e IDEs com suporte para desenvolvimento `R`.
 
 ![Screenshot da GUI do `R`](images/ssRGUI.png)
 
-## O que é `RStudio`?
+### O que é `RStudio`?
 
-- O `RStudio` é uma IDE livre e de código aberto, que pode ser executada
-    + Localmente (Widnows, OS X e Linux)
-    + Servidor (Linux)
+O `RStudio` é uma IDE livre e de código aberto, que pode ser executada:
 
-- O `RStudio` tem como objetivo facilitar o desenvolvimento em `R`, contando com:
-    + Painéis para console, editor de scripts, gráficos, gerenciador de arquivos, entre outros
-    + Debugger visual
-    + Ferramentas para controle de versão [@gitsvn]
-    + Ferramentas de apoio à reprodutibilidade [@rnotebooks]
-    + Framework para aplicações web [@shiny]
+- Localmente (Widnows, OS X e Linux);
+- Servidor (Linux).
 
-***
+O `RStudio` tem como objetivo facilitar o desenvolvimento em `R`, contando com:
+
+- Painéis para console, editor de scripts, gráficos, gerenciador de arquivos, entre outros;
+- Debugger visual;
+- Ferramentas para controle de versão [@gitsvn];
+- Ferramentas de apoio à reprodutibilidade [@rnotebooks];
+- Framework para aplicações web [@shiny].
 
 ![Screenshot do `RStudio`](images/ssRStudio.png)
 
 ***
 
-### Instalar o `RStudio`
+**Instalar o `RStudio`:** Acesse o site do [`RStudio`](https://www.rstudio.com/products/rstudio/download/) para fazer o download da IDE (Linux, OS X, Windows) e execute o binário para instalação.
 
-Acesse o site do [`RStudio`](https://www.rstudio.com/products/rstudio/download/) para fazer o download da IDE (Linux, OS X, Windows) e execute o binário para instalação.
+***
 
 # Primeiros Comandos
 
-## Console
+### Console
 
-- O sinal de maior (**>**) indica o prompt e significa que o `R` está pronto para receber comandos
+O sinal de maior (**>**) indica o prompt e significa que o `R` está pronto para receber comandos.
 
-- Se o comando inserido estiver incompleto, o sinal de adição (**+**) aparece, para que o comando seja completado.
+Se o comando inserido estiver incompleto, o sinal de adição (**+**) aparece, para que o comando seja completado.
 
 ```{r, eval=FALSE, prompt = TRUE}
 summary(iris    ## OMG! faltou um )
@@ -100,25 +97,22 @@ summary(iris    ## OMG! faltou um )
 
 ## Calculadora `R`
 
-- O pacote de operadores aritméticos e outras funções básicas de matemática estão disponíveis por padrão:
+O pacote de operadores aritméticos e outras funções básicas de matemática estão disponíveis por padrão:
 
-```{r, eval=FALSE,prompt = TRUE}
+```{r, eval = FALSE, prompt = TRUE}
 ## Isso é um comentário
-2        ## imprime um número
+2             ## imprime um número
 
 ## cálculos simples
 4 + 3    
 5 - 9
 7 * 8
-5 / 2    ## divisão real
+5 / 2         ## divisão real
 10^3
-```
 
-## Calculadora `R`
-
-```{r, eval=FALSE,prompt = TRUE}
 5 %/% 2       ## divisão inteira
 5 %% 2        ## resto da divisão inteira
+
 sqrt(9)       ## raiz quadrada
 abs(9-20)     ## valor absoluto
 factorial(4)  ## fatorial
@@ -126,40 +120,38 @@ factorial(4)  ## fatorial
 
 ## Variáveis
 
-- Atribuição de valores a variáveis é feita pelo operador `<-`:
+Atribuição de valores a variáveis é feita pelo operador `<-`:
 
-```{r, eval=FALSE,prompt = TRUE}
+```{r, prompt = TRUE}
 x <- 2  ## Atribui
 x       ## Imprime
 ```
 
-- Lembrando que a tipagem em `R` é dinâmica:
+Lembrando que a tipagem em `R` é dinâmica:
 
-```{r, eval=FALSE,prompt = TRUE}
+```{r, prompt = TRUE}
 (x <- "Hello World!")  ## Atribui e imprime
 ```
 
 ## Working Directory
 
-- O *Working Directory* (WD) é o ambiente de trabalho atual
+O *Working Directory* (WD) é o ambiente de trabalho atual.
 
 ```{r, eval = FALSE, prompt = TRUE}
 getwd()             ## retorna o WD atual
 setwd(meuDiretorio) ## altera o WD atual
 
-ls()                ## lista de objetos no WD
+ls()                ## lista objetos no WD
 ```
 
-## Working Directory
-
-- Durante uma sessão `R`, uma imagem do ambiente (objetos e valores) e o histórico de comandos podem ser salvos
+Durante uma sessão `R`, uma imagem do ambiente (objetos e valores) e o histórico de comandos podem ser salvos.
 
 ```{r, eval = FALSE, prompt = TRUE}
 savehistory(file = ".Rhistory") ## histórico de comandos
 save.image(file = ".RData")     ## imagem do ambiente
 ```
 
-- Se não especificado um diretório, os arquivos são salvos no WD atual
+Se não especificado um diretório, os arquivos são salvos no WD atual.
 
 ## Instalando Pacotes
 
@@ -177,84 +169,64 @@ library(ggplot2)
 
 # Tipos de Dados
 
-# Vetores
-
 ## Vetores
 
-- Uma lista de elementos de um **mesmo tipo**
+Um vetor é Uma lista de elementos de um **mesmo tipo**.
 
-- A função `c` cria vetores a partir de valores:
+A função `c` cria vetores a partir de valores:
 
 ```{r, prompt = TRUE}
 (vInt <- c(1,2,3))           ## um vetor de inteiros
 (vChar <- c('a', 'b', 'c'))  ## um vetor de caracteres 
 ```
 
-## Vetores
-
-- Para verificar o tipo de um vetor:
+Para verificar o tipo de um vetor:
 
 ```{r, prompt = TRUE}
 typeof(vInt)
 typeof(vChar)
 ```
 
-
-## Vetores
-
-- A função `c` também pode ser usada para concatenar vetores:
+A função `c` também pode ser usada para concatenar vetores:
 
 ```{r, prompt = TRUE}
 v <- c(vInt, vChar)
 ```
 
-- Qual o tipo de `v`?
+Qual o tipo de `v`?
+
+- Tipos mais simples são convertidos a tipos mais complexos.
 
 ```{r, prompt = TRUE}
 typeof(v)
 v
 ```
 
-## Vetores
-
-- Os elementos de um vetor são numerados a partir do valor **1** e podem ser acessados por seus índices:
+Os elementos de um vetor são numerados a partir do valor **1** e podem ser acessados por seus índices:
 
 ```{r, prompt = TRUE}
 vInt[3]      ## vInt = c(1, 2, 3)
 vChar[2]     ## vChar = c('a', 'b', 'c')
 ```
 
-## Vetores
-
-- Acessando partes de vetores:
+Acessando partes de vetores:
 
 ```{r, prompt = TRUE}
-v[3:5]     ## Elementos do índice 3 ao índice 5
-v[-2]      ## Todos com exceção do elemento de índice 2
+v[3:5]     ## Elementos de 3 a 5
+v[-2]      ## Todos, exceto o elemento 2
 ```
 
-## Vetores
-
-- Operações aritméticas também podem ser calculadas para vetores numéricos
+Operações aritméticas também podem ser calculadas para vetores numéricos:
 
 ```{r, prompt = TRUE}
 ## vInt = c(1, 2, 3)
 vInt + c(3, 2, 1)
 vInt + c(5, 4)       ## vetores de tamanhos diferentes
-```
-## Vetores
-
-- Operações aritméticas também podem ser calculadas para vetores numéricos
-
-```{r, prompt = TRUE}
-## vInt = c(1, 2, 3)
-vInt * c(3, 2, 1)
+vInt * rev(vInt)     ## rev() reverte um vetor
 vInt * 3
 ```
 
-## Vetores
-
-- Mais formas de criar vetores
+Mais formas de criar vetores:
 
 ```{r, eval = FALSE, prompt = TRUE}
 (v11 <- logical(10))
@@ -266,19 +238,7 @@ vInt * 3
 (v5 <- rep(.5, times = 10))
 ```
 
-## Vetores
-
-- Funções padrão aplicadas a vetores
-
-```{r, include = FALSE}
-(v11 <- logical(10))
-(v12 <- numeric(20))
-(v13 <- character(5))
-(v2 <- 1:10)
-(v3 <- seq(1, 10, by = 3))
-(v4 <- seq(1, 5, length.out = 8))
-(v5 <- rep(.5, times = 10))
-```
+Funções padrão aplicadas a vetores:
 
 ```{r, prompt = TRUE}
 length(v11)
@@ -286,11 +246,12 @@ sum(v3)
 var(v4)
 ```
 
-# Matrizes
-
 ## Matrizes
-- Vetores bidimensionais (elementos de um **mesmo tipo**)
-- Sejam os vetores
+
+Matrizes são Vetores bidimensionais com elementos de um **mesmo tipo**.
+
+Sejam os vetores:
+
 ```{r, prompt = TRUE}
 ID <- 1:20
 Altura <- sample(150:190, size = 20, replace = TRUE)
@@ -298,8 +259,7 @@ Peso <- sample(50:100, size = 20, replace = TRUE)
 IMC <- Peso/((Altura/100)^2)
 ```
 
-## Matrizes
-- Uma matriz pode ser criada pela combinação de vetores
+Uma matriz pode ser criada pela combinação de vetores
 
 ```{r, prompt = TRUE}
 M <- cbind(ID, Altura, Peso, IMC)
@@ -308,70 +268,37 @@ class(M)
 dim(M)
 ```
 
-##Matrizes
+Uma matriz pode ser exibida graficamente usando a função padrão `plot`
 
-- Uma matriz pode ser exibida graficamente usando a função padrão `plot`
-
-```{r, eval = FALSE, prompt = TRUE}
-plot(M[,"Altura"], M[,"Peso"],
-     ylab="Peso", xlab="Altura",
-     main="Altura x Peso")
-```
-
-***
-
-```{r, echo = FALSE, prompt = TRUE}
+```{r, prompt = TRUE}
 plot(M[,"Altura"],M[,"Peso"],
      ylab="Peso",xlab="Altura",
      main="Altura x Peso")
 ```
 
-##Matrizes
+Ou usando a função `quickplot` do pacote `ggplot2`
 
-- Ou usando a função `quickplot` do pacote `ggplot2`
-
-```{r, eval = FALSE, prompt = TRUE}
-install.packages("ggplot2")
-
+```{r, prompt = TRUE}
 ggplot2::qplot(M[,"Altura"], M[,"Peso"],
                ylab="Peso", xlab="Altura",
                main="Obesidade",
                size = M[,"IMC"],
                color = as.factor(M[,"ID"])) + 
-ggplot2::guides(col = guide_legend(ncol = 3))
+ggplot2::guides(col = ggplot2::guide_legend(ncol = 3))
 ```
-
-***
-
-```{r, echo=FALSE, prompt=TRUE}
-qplot(M[,"Altura"], M[,"Peso"],
-      ylab="Peso", xlab="Altura",
-      main="Obesidade",
-      size = M[,"IMC"],
-      color = as.factor(M[,"ID"])) + guides(col = guide_legend(ncol = 3))
-```
-
-# Listas
 
 ## Listas
-- Uma coleção de objetos `R` que podem ser de tipos e tamanhos **diferentes**
+Uma lista é uma coleção de objetos `R` que podem ser de **tipos e tamanhos diferentes**.
 
-- Sejam os objetos armazenados nas variáveis `x`, `y` e `z`:
+Sejam os objetos armazenados nas variáveis `x`, `y` e `z`:
 
-```{r, include = FALSE, prompt = TRUE}
-x <- c(1:4)
-y <- FALSE
-z <- matrix(c(1:4),nrow=2,ncol=2)
-```
-
-```{r, eval = FALSE, prompt = TRUE}
+```{r, prompt = TRUE}
 x <- c(1:4)
 y <- FALSE
 z <- matrix(c(10, 20, 30, 40),nrow=2,ncol=2)
 ```
 
-## Listas
-- É possível criar uma lista usando a função `list()`
+É possível criar uma lista usando a função `list()`:
 
 ```{r, prompt = TRUE}
 l1 <- list(x, y, z)
@@ -379,8 +306,7 @@ l2 <- list(x = x, y = y, z = z)
 l3 <- list()
 ```
 
-## Listas
-- Listas podem ser referenciadas por índices ou nomes
+Listas podem ser referenciadas por índices ou nomes:
 
 ```{r, prompt = TRUE}
 l1[[1]]
@@ -388,82 +314,64 @@ l2[[2]]
 l2$z
 ```
 
-## Listas
-- Elementos podem ser inseridos a listas usando índice ou nomes
+Elementos podem ser inseridos a listas usando índice ou nomes:
 
 ```{r, prompt = TRUE}
 l3
-l3[[1]] <- "Elemento 1 da l3 não é mais vazia"
+l3[[1]] <- "Elemento 1 da l3"
 l3$Subscribe <- TRUE
 l3
 ```
 
-## Listas
-- Atenção!!
+**Atenção!!**
 
 ```{r, prompt = TRUE}
 l1[[1]]      ## valor do elemento 1 de l1
 l3$Subscribe ## valor do elemento 'Subscribe' de l3
-```
-
-## Listas
-- Atenção!!
-
-```{r, prompt = TRUE}
 l3[2]        ## retorna lista com o elemento 2
 l2[2:3]      ## retorna lista com os elementos 2 a 3
 ```
 
-# `data.frame`
-
 ## `data.frame`
 
-- Uma lista de variáveis de **mesmo tamanho**
+Um `data.frame` é uma lista de objetos que possuem o **mesmo tamanho**
 
-- Sejam os vetores `X1` e `X2`
+Sejam os vetores `X1` e `X2`
 
 ```{r, prompt = TRUE}
 X1 <- 1:5
 X2 <- rep(c(T, F), length.out = 5)
 ```
 
-## `data.frame`
-
-- Criação a partir de vetores e matrizes
+Podemo criar um `data.frame` a partir de vetores e/ou matrizes:
 ```{r, prompt = TRUE}
 (df <- data.frame(X1, X2))
 dfM <- data.frame(M)
 ```
 
-## `data.frame`
-
-- Acessando colunas
+Acessando colunas de um `data.frame`:
 
 ```{r, prompt = TRUE}
 df$X2
 dfM[,2:3] ## ou c('Altura', 'Peso')
 ```
 
-## `data.frame`
-
-- Acessando linhas
+Acessando linhas de um `data.frame`:
 
 ```{r, prompt = TRUE}
 df[1,]
 dfM[5:10,-1]
 ```
 
-## `data.frame`
-
-- Função `summary`
+Função `summary` traz uma sinopse dos dados em um `data.frame`
 
 ```{r, prompt = TRUE}
 summary(dfM[,2:4])
 ```
 
-# Outros Tipos de Dados
+## Outros Tipos de Dados
 
-## Fatores
+### Fatores
 
 - Vetores com níveis
 
@@ -476,7 +384,7 @@ factor(
 )
 ```
 
-## Arrays
+### Arrays
 
 - Objeto $n$-dimensional com elementos de um **mesmo tipo**
 
@@ -488,7 +396,7 @@ array(1:8,dim=c(2,2,2))
 
 ## Condicional
 
-- Considera uma condição unidimensional que pode ser `TRUE` ou `FALSE`, `T` ou `F`, `1` ou `0`, ou o valor de avaliação de alguma expressão lógica
+Considera uma condição unidimensional que pode ser `TRUE` ou `FALSE`, `T` ou `F`, `1` ou `0`, ou o valor de avaliação de alguma expressão lógica.
 
 ```{r, eval = FALSE, prompt = TRUE}
 if (TRUE){
@@ -500,7 +408,7 @@ if (TRUE){
 
 ## Laços
 
-- Três tipos de laços explícitos: `for`, `repeat` e `while`
+São três tipos de laços explícitos em `R`: `for`, `repeat` e `while`
 
 ```{r, prompt = TRUE}
 for(k in 1:5){
@@ -508,49 +416,41 @@ for(k in 1:5){
 }
 ```
 
-- Informações sobre condicionais e laços em `R` podem ser obtidas pelo comando `?Control`
+Informações sobre condicionais e laços em `R` podem ser obtidas pelo comando `?Control`. Laço fora do pacote padrão: `foreach` (`install.packages("foreach")`).
 
-## Família `apply`
-- Funções que implementam laços implícitos
-    + `apply()`: aplica uma função aos elementos de uma matriz, `data.frame` ou array.
-    + `lapply()`: aplica uma função a cada coluna de um `data.frame` e retorna uma lista
-    + `sapply()`: aplica uma função a cada coluna de um `data.frame` e retorna uma estrutura simplificada (vetor ou matriz)
-    + `tapply()`: aplica uma função considerando cada nível de um fator
-    + ...
 
 ## Família `apply`
 
-- Considerando o `data.frame` `dfM` construído a partir da matriz `M`, com colunas `ID`, `Altura`, `Peso` e `IMC`
+A família `apply` consite de um conjunto de funções que implementam laços (laços implícitos)
+
+- `apply()`: aplica uma função aos elementos de uma matriz, `data.frame` ou array.
+- `lapply()`: aplica uma função a cada coluna de um `data.frame` e retorna uma lista
+- `sapply()`: aplica uma função a cada coluna de um `data.frame` e retorna uma estrutura simplificada (vetor ou matriz)
+- `tapply()`: aplica uma função considerando cada nível de um fator
+- ...
+
+Considerando o `data.frame` `dfM` construído a partir da matriz `M`, com colunas `ID`, `Altura`, `Peso` e `IMC`:
 
 ```{r, prompt = TRUE}
-## aplica função para cada linha (MARGIN = 1)
+## aplica mean para cada linha (MARGIN = 1)
 apply(dfM, MARGIN = 1, mean)
-## aplica função para cada coluna (MARGIN = 2)
+## aplica mean para cada coluna (MARGIN = 2)
 apply(dfM, MARGIN = 2, mean)
-```
-
-## Família `apply`
-
-```{r, prompt = TRUE}
 ## retorna uma lista
 lapply(dfM, mean)
-```
-
-## Família `apply`
-
-```{r, prompt = TRUE}
 ## retorna um vetor nomeado
 sapply(dfM, mean)
 ```
 
-## Família `apply`
-- Incluímos uma coluna a mais com a informação sobre a idade
+Incluindo uma coluna a mais com a informação sobre a idade:
 
 ```{r, prompt = TRUE}
 dfM <- cbind(dfM, 
              Idade = sample(
                c("Jovem", "Meia-Idade", "Terceira Idade"),
-               size = 5, replace = TRUE))
+               size = 20, replace = TRUE))
+
+dfM
 ```
 
 ```{r, prompt = TRUE}
@@ -558,71 +458,53 @@ dfM <- cbind(dfM,
 tapply(dfM$Altura, dfM$Idade, mean)
 ```
 
-# Programando em `R`
-
-## Scripts
-
-- Uma série de comandos salvos em um arquivo .R
+# Scripts
 
 ```{r, eval = FALSE, prompt=TRUE}
 ## carrega e executa um arquivo .R para a workspace
 source("meuScript.R")
 ```
 
-### meuScript.R
-```{r, eval = FALSE}
+***
+**meuScript.R**
+```{r, echo=TRUE, eval = FALSE}
 x <- 5
 print(x^2)
 ```
+***
 
-## Funções
+# Funções
 
-- Criação de objetos do tipo `function`
-    + Função anônima
-    + Função atribuída a uma variável
+Uma função é um objeto do tipo `function`
 
+- Função anônima:
 ```{r, prompt=TRUE}
-v2
-## aplicação de uma função anônima
 sapply(v2, function(x) x^2)
 ```
 
-## Funções
-
-- Função atribuída a uma variável
-
+- Função atribuída a uma variável:
 ```{r, prompt=TRUE}
 quadrado <- function(x) {
   print(x^2)
 }
 
 quadrado(2)
-```
 
-## Funções
-
-```{r, prompt=TRUE}
-## aplicação da função quadrado
 sapply(v2, quadrado)
 ```
 
-
-## Funções
-
-- Podemos alterar a função para que retorne o quadrado do parâmetro
+Devido à utilização da função `print`, o resultado para `sapply` é inadequado. Alteramos  função para que retorne o quadrado do parâmetro, ao invés de imprimí-lo:
 
 ```{r, prompt=TRUE}
 quadrado <- function(x) {
-  x^2  ## ou return(x^2)
+  return(x^2)
 }
 
 quadrado(2)
 sapply(v2, quadrado)
 ```
 
-## Funções
-
-- Definindo uma função com valor padrão para parâmetro
+Definindo uma função com valor padrão para parâmetro:
 
 ```{r, prompt=TRUE}
 potencia <- function(x, y = 2) {
@@ -634,18 +516,23 @@ c(potencia(3),
   potencia(y = 3, x = 4))
 ```
 
-## Classes
+Se o segundo parâmetro não for passado na chamada da função, então será considerado o valor padrão, `y = 2`.
 
-- Classes podem ser definidas como funções que retornam objetos
-- São 3 os sistemas para OO:
-    + S3: o primeiro e mais simples
-    + S4: similar a S3, mas com mais formalismo
-    + RC: Classes de Referência (Reference Classes), é o sistema mais parecido com a ideia de objetos de outras linguages OO, como Python, Ruby, Java, ...
-- Para grande parte dos casos, o sistema S3 é suficiente
+# Classes
+
+Classes podem ser definidas como funções que retornam objetos.
+
+São 3 os sistemas para OO:
+
+- S3: o primeiro e mais simples;
+- S4: similar a S3, mas com mais formalismo;
+- RC: Classes de Referência (Reference Classes), é o sistema mais parecido com a ideia de objetos de outras linguages OO, como Python, Ruby, Java, ...
+
+Para grande parte dos casos, o sistema S3 é suficiente.
 
 ## Sistema S3
 
-- Seja o objeto `meuVetor`
+Seja o objeto `meuVetor`:
 
 ```{r, prompt = TRUE}
 (meuVetor <- c(1, 2, 3))
@@ -653,18 +540,14 @@ c(potencia(3),
 class(meuVetor)
 ```
 
-## Sistema S3
-
-- Atualizando a classe de `meuVetor`
+Atualizamos a classe de `meuVetor`:
 
 ```{r, prompt = TRUE}
 class(meuVetor) <- append(class(meuVetor), "Sequencia")
 class(meuVetor)
 ```
 
-## Sistema S3
-
-- Implementandos métodos por funções genéricas
+O objeto `quinzinho` é da classe Personagem.
 
 ```{r, prompt=TRUE}
 quinzinho <- list(nome = "Joaquim",
@@ -676,11 +559,9 @@ class(quinzinho) <- append(class(quinzinho),"Personagem")
 quinzinho
 ```
 
-## Sistema S3
+Podemos implementar métodos para Personagem usando funções genéricas
 
-- Implementando métodos por funções genéricas
-
-```{r}
+```{r, eval = FALSE, prompt =TRUE}
 ## Uma nova função genérica
 maioridade <- function(obj) {
   UseMethod("maioridade",obj)   
@@ -692,11 +573,9 @@ maioridade.Personagem <- function(obj) {
 }
 ```
 
-## Sistema S3
-
 - Implementando métodos por funções genéricas já definidas pelo `R`
 
-```{r}
+```{r, eval = FALSE, prompt =TRUE}
 ## Implementação de print para a classe Personagem
 print.Personagem <- function(obj) {
   cat("Nome:", obj$nome, "\t")
@@ -706,7 +585,6 @@ print.Personagem <- function(obj) {
 
 ```
 
-## Sistema S3
 - Executando funções
 
 ```{r, prompt=TRUE}
@@ -715,7 +593,8 @@ maioridade(quinzinho)
 quinzinho
 ```
 
-## Classe S3 - `ProgramaTV`
+***
+### Exemplo - `ProgramaTV`
 
 ```{r, prompt=TRUE}
 ProgramaTV <- function(titulo, genero = "Reality", notas = NA){
@@ -733,22 +612,18 @@ ProgramaTV <- function(titulo, genero = "Reality", notas = NA){
 }
 ```
 
-## Classe S3 - Instância de `ProgramaTV`
+Um objeto da classe `ProgramaTV`:
 
 ```{r, prompt=TRUE}
 got <- ProgramaTV(
           "Game of Thrones",
           c("Aventura", "Drama", "Épico", "Fantasia"),
           c(IMDB = 9.5, Rotten = 94))
-```
 
-## Classe S3 - Instância de `ProgramaTV`
-
-```{r, prompt=TRUE}
 got
 ```
 
-## Classe S3 - Métodos para `ProgramaTV`
+Métodos para `ProgramaTV`
 
 ```{r, prompt=TRUE}
 ## Novo método genérico
@@ -760,11 +635,7 @@ getTitulo <- function(objeto) {
 getTitulo.ProgramaTV <- function(objeto) {
   return(objeto$titulo)
 }
-```
 
-## Classe S3 - Métodos para `ProgramaTV`
-
-```{r, prompt=TRUE}
 ## Implementação de print para a classe ProgramaTV
 print.ProgramaTV <- function(objeto){
   cat("Título:", objeto$titulo, "\n")
@@ -777,7 +648,7 @@ print.ProgramaTV <- function(objeto){
 }
 ```
 
-## Classe S3 - Métodos para `ProgramaTV`
+Chamada de métodos de `ProgramaTV`:
 
 ```{r, prompt=TRUE}
 getTitulo(got)
